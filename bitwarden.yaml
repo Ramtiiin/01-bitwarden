@@ -1,0 +1,25 @@
+version: "3.5"
+services:
+  bw:
+    image: vaultwarden/server
+    network_mode: "bridge"
+    container_name: "bw"
+    ports:
+      -  "808:80"
+      -  "3012:3012"
+    volumes:
+      -  "/volume2/bitwarden:/data"
+    environment:
+      - "SMTP_PASSWORD=A123456b!@#" #add SMTP_XXXX variables to allow public user managment (account reset etc)
+      - "SMTP_USERNAME=figma@ramtiin.ir"
+      - "SMTP_SSL=true"
+      - "SMTP_PORT=465"
+      #- "SMTP_FROM=from_email"	 
+      - "SMTP_FROM=figma@ramtiin.ir"
+      - "SMTP_HOST=mail.ramtiin.ir"
+      - "DOMAIN=https://ramtiin.ir" #add your public domain name
+      - "TZ=Europe/Paris"
+      - "WEBSOCKET_ENABLED=true" #Enable this if you want to use the LiveSync feature on port 3012
+      - "SIGNUPS_ALLOWED=false" #true or false if you want to enable or disable public signups
+      - "ADMIN_TOKEN=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" #add custom string for logging into the admin UI
+    restart: always
